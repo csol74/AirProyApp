@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import numpy as np
+import uvicorn
+import os
 
 app = FastAPI()
 
@@ -29,3 +31,9 @@ def predict(data: InputData):
         mensaje = "¡Advertencia! Calidad del aire peligrosa."
     
     return {"prediccion": int(prediction), "mensaje": mensaje}
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))  # Usa el puerto que Railway indica
+    uvicorn.run(app, host="0.0.0.0", port=port)
+
