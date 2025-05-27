@@ -9,19 +9,18 @@ app = FastAPI()
 model = joblib.load("knn_model.joblib")
 scaler = joblib.load("scaler.joblib")
 
-# Modelo de entrada con nombres reales
 class InputData(BaseModel):
     PM10: float
-    PM2_5: float
+    PM2_5: float  
     NO2: float
     O3: float
 
 @app.post("/predict")
 def predict(data: InputData):
-    # Crear DataFrame con nombres exactos
+    # Crear DataFrame con los mismos nombres que se usaron al entrenar el modelo
     input_df = pd.DataFrame([{
         "PM10": data.PM10,
-        "PM2_5": data.PM2_5,
+        "PM2,5": data.PM2_5,  
         "NO2": data.NO2,
         "O3": data.O3
     }])
